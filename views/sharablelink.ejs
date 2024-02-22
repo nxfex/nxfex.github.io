@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>শেয়ার করো</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif+Bengali:wght@100..900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Noto Serif Bengali";
+            font-size: 1em;
+            appearance: none;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logoP {
+            position: fixed;
+            top: 1.5em;
+            left: 1.5em;
+        }
+
+        .logoP > b > a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .qrBoxDiv {
+            border: 1px solid black;
+            width: fit-content;
+            height: fit-content;
+            padding: 0.3em;
+            position: fixed;
+            top: 20vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qrBoxDiv > img {
+            height: 55vw;
+            width: 55vw;
+        }
+
+        #sharableLinkP {
+            font-family: "Noto Sans";
+        }
+
+        .howToP {
+            position: fixed;
+            top: 50vh;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <p class="logoP"><b><a href="/">শেয়ার করো</a></b></p>
+
+    <div class="qrBoxDiv">
+        <img src="<%= qrCode %>" alt="qr code">
+        <p id="sharableLinkP"><%= link %></p>
+    </div>
+
+    <p class="howToP">যাকে এইসব ফাইল পাঠাতে চান,
+        <br>তার সাথে উপরের লিংকটি শেয়ার করুন</p>
+
+    <!-- Your JavaScript -->
+</body>
+</html>
