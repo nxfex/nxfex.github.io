@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tic tac toe</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Roboto Mono', monospace;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            align-items: center;
+            background-color: black;
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            width: 100vw;
+        }
+
+        .gameBox {
+            background-color: #111111;
+            bottom: 5em;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0.8em;
+            position: absolute;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .box {
+            font-family: 'REM';
+            font-weight: 900;
+            color: #b9b9b9;
+            align-items: center;
+            background-color: #000000;
+            border: 1px solid #ffffff;
+            display: flex;
+            height: 5em;
+            justify-content: center;
+            text-align: center;
+            width: 5em;
+            font-size: 1em;
+        }
+
+        .winningWindow {
+            z-index: 1;
+            width: 100vw;
+            height: 100vh;
+            background-color: #5a5a5a28;
+            backdrop-filter: blur(1em);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .showHide {
+            display: none;
+        }
+
+        #winnerP {
+            color: white;
+            font-family: 'Roboto Mono';
+            font-size: 1em;
+            position: relative;
+            top: 10em;
+
+        }
+
+        #restartBtn {
+            padding: 0.2em 0.3em;
+            outline: none;
+            border: none;
+            background-color: transparent;
+            color: white;
+            text-decoration: underline;
+            margin: 2em;
+            position: relative;
+            top: 10em;
+
+        }
+    </style>
+</head>
+<body>
+    <div id = "winningWindow" class="showHide">
+        <p id="winnerP"></p>
+        <button onclick="location.reload()" id="restartBtn">new game</button>
+    </div>
+
+    <div class="gameBox">
+        <div class="row">
+            <div class="box" id="1" onclick="playMove(event, 1)"></div>
+            <div class="box" id="2" onclick="playMove(event, 2)"></div>
+            <div class="box" id="3" onclick="playMove(event, 3)"></div>
+        </div>
+        <div class="row">
+            <div class="box" id="4" onclick="playMove(event, 4)"></div>
+            <div class="box" id="5" onclick="playMove(event, 5)"></div>
+            <div class="box" id="6" onclick="playMove(event, 6)"></div>
+        </div>
+        <div class="row">
+            <div class="box" id="7" onclick="playMove(event, 7)"></div>
+            <div class="box" id="8" onclick="playMove(event, 8)"></div>
+            <div class="box" id="9" onclick="playMove(event, 9)"></div>
+        </div>
+    </div>
+
+    <script>
+        winningWindow = document.getElementById("winningWindow")
+        winnerP = document.getElementById("winnerP")
+
+        currentPlayer = 0
+        playerX = []
+        playerO = []
+        function playMove(event, v) {
+            console.log(v)
+            event.target.onclick = null
+
+            switch (currentPlayer) {
+                case 0:
+                    document.getElementById(v).innerHTML = "X"
+                    playerX.push(v)
+                        if (checkWinner(playerX)) {
+                            setTimeout(() => {
+                                if (winningWindow.classList.contains('showHide')) {
+                                winningWindow.classList.remove('showHide')
+                                winningWindow.classList.add('winningWindow')
+                                winnerP.innerText = "player X won"
+                                }
+                            }, 1000);
+                            
+                            console.log('player X won')
+
+                        }
+                    currentPlayer += 1
+                    break;
+            
+                default:
+                    document.getElementById(v).innerHTML = "O"
+                    playerO.push(v)
+                        if (checkWinner(playerO)) {
+                            setTimeout(() => {
+                                if (winningWindow.classList.contains('showHide')) {
+                                winningWindow.classList.remove('showHide')
+                                winningWindow.classList.add('winningWindow')
+                                winnerP.innerText = "player O won"
+                                }
+                            }, 1000);
+                            
+                            console.log('player O won')
+                        }
+                    currentPlayer -= 1
+                    break;
+            }
+        }
+
+        const winningCombinations = [
+            [1, 2, 3],
+            [1, 5, 9],
+            [1, 4, 7],
+            [2, 5, 8],
+            [3, 6, 9],
+            [3, 5, 7],
+            [4, 5, 6],
+            [7, 8, 9]
+        ]
+
+        function checkWinner(playerName) {
+            for (let combo of winningCombinations) {
+                if (combo.every(val => playerName.sort((a, b) => a - b).includes(val))) {
+                    return true
+                }
+            }
+            return false
+        }
+        
+    </script>
+</body>
+</html>
